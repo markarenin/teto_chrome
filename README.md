@@ -1,4 +1,6 @@
-# atta_chrome
+# Teto chrome
+
+Teto makes it easy to learn Estonian by defining unfamiliar words while reading articles.
 
 ## Project setup
 ```
