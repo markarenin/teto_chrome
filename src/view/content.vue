@@ -3,7 +3,7 @@
   <div v-show="state === 'found'" id="pop" ref="pop" class="main size-found custom-font" role="tooltip">
     <div style="display: flex; justify-content: space-between">
       <div id="col1" style="">
-        <p style="height: 30px">{{ wordObject?.lemma }}</p>
+        <p style="height: 30px; text-transform: capitalize; font-weight: 600">{{ wordObject?.lemma }} <span v-if="wordObject?.levels?.length > 0" class="level_badge">{{ wordObject.levels[0]}}</span></p>
         <div
             style="max-height: 56px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
           {{ wordObject?.meanings.join('\n') }}
@@ -126,11 +126,7 @@ export default {
       this.left = bounds.left - leftValue
       // this.left = bounds.left  + "px"
     },
-  },
-  mounted() {
-    console.log("Atta Eesti Keel: EXTENSION MOUNTED")
-    document.onselectionchange = () => {
-      // console.log(document.getSelection().getRangeAt(0).getBoundingClientRect())
+    onSelectionHandler() {
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
         this.coordinates.selectedWordWidth.value = document.getSelection().getRangeAt(0).getBoundingClientRect().width
@@ -138,6 +134,13 @@ export default {
         this.new_selection(document.getSelection())
       }, 700)
     }
+  },
+  mounted() {
+    console.log("Atta Eesti Keel: EXTENSION MOUNTED")
+    document.addEventListener('selectionchange', this.onSelectionHandler)
+  },
+  unmounted() {
+    document.removeEventListener('selectionchange', this.onSelectionHandler)
   },
   watch: {
     top(newValue) {
@@ -167,7 +170,7 @@ export default {
   src: url('~@/assets/Montserrat.ttf') format('truetype');
 }
 .custom-font {
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
 }
 .main {
   padding: 10px;
@@ -184,13 +187,13 @@ export default {
 }
 
 .size-found {
-  width: 330px;
-  height: 140px;
+  width: 330px!important;
+  height: 140px!important;
 }
 
 .size-loading{
-  width: v-bind('coordinates.selectedWordWidth.px');
-  max-height: 1px;
+  width: v-bind('coordinates.selectedWordWidth.px')!important;
+  max-height: 1px!important;
 }
 
 #pop {
@@ -205,9 +208,9 @@ p {
 }
 
 .progress-bar {
-  height: 1px;
+  height: 1px!important;
   background-color: rgb(180,255,255);
-  width: 100%;
+  width: 100%!important;
   overflow: hidden;
 }
 
@@ -243,5 +246,20 @@ button {
   border: none;
   border-radius: 0;
 }
+
+.level_badge {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2px;
+  padding: 3px 3px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: #FFFFFF;
+  background-color: #1DC9A0;
+  font-size: 12px;
+}
+
 </style>
 

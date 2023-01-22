@@ -3,8 +3,9 @@
     "name": "Teto - Eesti keele assistent",
     "description": "Teto makes it easy to learn Estonian by defining unfamiliar words while reading articles.",
     "version": "0.0.1",
-    "background": {
-        "service_worker": "/background.js"
+    "icons": {
+        "32": "icon32.png",
+        "128": "icon128.png"
     },
     "action": {
         "default_popup": "popup.html"
@@ -19,5 +20,7 @@
             ]
         }
     ],
-    "options_page": "options.html"
+    "permissions": [
+        "storage"
+    ]
 }

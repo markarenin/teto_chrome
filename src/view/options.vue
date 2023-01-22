@@ -1,24 +1,35 @@
 <template>
-  <div class="main_app">
-    <h1>Hello {{msg}}</h1>
-  </div>
+  <h2 v-if="user">signed user: {{ user }}</h2>
 </template>
 
 <script>
+import 'bootstrap/dist/css/bootstrap.css'
+
 export default {
   name: 'optionsView',
-  data () {
+  data() {
     return {
-      msg: 'options'
+      user: '',
     }
-  }
+  },
+  methods: {
+    signInByGoogleAuth(response) {
+      console.log(response)
+    }
+  },
 }
+
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+@font-face {
+  font-family: 'Montserrat';
+  src: url('~@/assets/Montserrat.ttf') format('truetype');
+}
+
 .main_app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Monsterrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
